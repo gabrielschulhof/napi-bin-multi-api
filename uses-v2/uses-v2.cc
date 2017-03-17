@@ -1,0 +1,10 @@
+#include <node_jsvmapi.h>
+
+void exportedFunctionV2(napi_env env, napi_callback_info info){}
+
+void Init(napi_env env, napi_value exports, napi_value module) {
+  napi_property_descriptor desc = { "exportedFunctionV2", exportedFunctionV2 };
+  napi_define_properties(env, exports, 1, &desc);
+}
+
+NODE_MODULE_ABI(usesv2, Init)
