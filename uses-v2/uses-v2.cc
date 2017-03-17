@@ -3,6 +3,8 @@
 void exportedFunctionV2(napi_env env, napi_callback_info info){}
 
 void Init(napi_env env, napi_value exports, napi_value module) {
+  napi_value jsUndefined;
+  napi_get_undefined(env, &jsUndefined, "from init");
   napi_property_descriptor desc = { "exportedFunctionV2", exportedFunctionV2 };
   napi_define_properties(env, exports, 1, &desc);
 }

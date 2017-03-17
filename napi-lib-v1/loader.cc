@@ -1,23 +1,33 @@
+#include <dlfcn.h>
 #include <stdlib.h>
 #include <node.h>
-#include <uv.h>
 
 NODE_C_CTOR(loadNAPIFirst) {
-  int result;
-  uv_lib_t lib;
+  void *lib;
 
-  result = uv_dlopen("build/Release/napi-lib.so", &lib);
-  if (result) {
+  const char *napiPath = getenv("__NAPI_IMPLEMENTATION");
+  if (!napiPath) {
+    fprintf(stderr, "Failed to retrieve napi path from environment\n");
+    return;
+  }
+
+  lib = dlopen(napiPath, RTLD_LAZY | RTLD_GLOBAL);
+  if (!lib) {
+    fprintf(stderr, "dlopen of \"%s\" failed with %s\n", napiPath,
+		dlerror());
     return;
   }
 
   const char *modulePath = getenv("__NAPI_MODULE_TO_LOAD");
   if (!modulePath) {
+    fprintf(stderr, "Failed to retrieve module path from environment\n");
     return;
   }
 
-  result = uv_dlopen(modulePath, &lib);
-  if (result) {
+  lib = dlopen(modulePath, RTLD_LAZY | RTLD_LOCAL);
+  if (!lib) {
+    fprintf(stderr, "dlopen of \"%s\" failed with %s\n", modulePath,
+	  dlerror());
     return;
   }
 }
