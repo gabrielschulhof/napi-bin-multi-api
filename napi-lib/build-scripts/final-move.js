@@ -13,10 +13,18 @@ try {
 	}
 }
 
-fs.renameSync(
-	path.join( productDir, "v1.node" ),
-	path.join( implementationsDir, implementationName( "v1" ) ) );
+function moveOne( napiVersion ) {
+	var dotLibFile = path.join( productDir, napiVersion + ".lib" );
 
-fs.renameSync(
-	path.join( productDir, "v2.node" ),
-	path.join( implementationsDir, implementationName( "v2" ) ) );
+	fs.renameSync(
+		path.join( productDir, napiVersion + ".node" ),
+		path.join( implementationsDir, implementationName( napiVersion ) ) );
+
+	if ( fs.existsSync( dotLibFile ) ) {
+		fs.renameSync( dotLibFile,
+			path.join( implementationsDir, implementationName( napiVersion ) + ".lib" ) );
+	}
+}
+
+moveOne( "v1" );
+moveOne( "v2" );

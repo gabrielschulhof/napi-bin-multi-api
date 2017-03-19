@@ -26,3 +26,7 @@ module.exports.loadAddon = function loadAddon( absLibraryPath, napiVersion ) {
 module.exports.loaderPath = function loaderPath() {
 	return path.join( productDir, "loader.node" );
 };
+
+module.exports.winLib = function( napiVersion ) {
+	return path.join( __dirname, "implementations", implementationName( napiVersion ) + ".lib" );
+};

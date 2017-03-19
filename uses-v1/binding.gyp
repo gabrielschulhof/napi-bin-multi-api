@@ -7,7 +7,10 @@
 			],
 			"sources": [
 				"uses-v1.cc"
-			]
+			],
+			"conditions": [ [ "OS=='win'", {
+				"libraries": [ "<!(node -p \"require( 'napi-lib' ).winLib( 'v1' );\")" ]
+			} ] ]
 		},
 		{
 			"target_name": "copy-loader",
