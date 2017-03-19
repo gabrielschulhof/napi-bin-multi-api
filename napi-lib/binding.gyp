@@ -31,8 +31,8 @@
 					"<(PRODUCT_DIR)/v2.node"
 				],
 				"outputs": [
-					"implementations/<!@(node -p 'require( \"./implem-name\" )( \"v1\" );')",
-					"implementations/<!@(node -p 'require( \"./implem-name\" )( \"v2\" );')"
+					"implementations/<!(node -p \"require( './implem-name' )( 'v1' );\")",
+					"implementations/<!(node -p \"require( './implem-name' )( 'v2' );\")"
 				],
 				"action": [ "node", "build-scripts/final-move.js", "<(PRODUCT_DIR)" ]
 			} ],
