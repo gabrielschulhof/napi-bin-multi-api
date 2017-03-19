@@ -2,7 +2,7 @@ var implementationName = require( "../implem-name" );
 var path = require( "path" );
 var fs = require( "fs" );
 
-var productDir = process.argv[ 2 ];
+var productDir = require( "../product-dir.json" ).productDir;
 var implementationsDir = path.normalize( path.join( __dirname, "..", "implementations" ) );
 
 try {
