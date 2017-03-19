@@ -2,7 +2,7 @@ var implementationName = require( "../implem-name" );
 var path = require( "path" );
 var fs = require( "fs" );
 
-var productDir = require( "../product-dir.json" ).productDir;
+var buildConfig = require( "../build-config.json" );
 var implementationsDir = path.normalize( path.join( __dirname, "..", "implementations" ) );
 
 try {
@@ -14,15 +14,17 @@ try {
 }
 
 function moveOne( napiVersion ) {
-	var dotLibFile = path.join( productDir, napiVersion + ".lib" );
+	var dotLibFile =
+		path.join( buildConfig.productDir, napiVersion + buildConfig.staticLibSuffix );
 
 	fs.renameSync(
-		path.join( productDir, napiVersion + ".node" ),
+		path.join( buildConfig.productDir, napiVersion + buildConfig.shlibSuffix ),
 		path.join( implementationsDir, implementationName( napiVersion ) ) );
 
 	if ( fs.existsSync( dotLibFile ) ) {
 		fs.renameSync( dotLibFile,
-			path.join( implementationsDir, implementationName( napiVersion ) + ".lib" ) );
+			path.join( implementationsDir,
+				implementationName( napiVersion ) + buildConfig.staticLibSuffix ) );
 	}
 }
 

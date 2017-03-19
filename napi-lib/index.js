@@ -1,6 +1,6 @@
 var path = require( "path" );
 var implementationName = require( "./implem-name" );
-var productDir = require( "./product-dir.json" ).productDir;
+var buildConfig = require( "./build-config.json" );
 
 module.exports = function( napiVersion ) {
 	return path.join( __dirname, napiVersion );
@@ -24,7 +24,7 @@ module.exports.loadAddon = function loadAddon( absLibraryPath, napiVersion ) {
 };
 
 module.exports.loaderPath = function loaderPath() {
-	return path.join( productDir, "loader.node" );
+	return path.join( buildConfig.productDir, "loader.node" );
 };
 
 module.exports.winLib = function( napiVersion ) {
