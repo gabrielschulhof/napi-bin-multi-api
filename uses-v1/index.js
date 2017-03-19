@@ -3,12 +3,10 @@ var path = require( "path" );
 
 var napiModule = ( function() {
 	var modulePath = path.join( __dirname, "build", "Release", "uses-v1.node" );
-	console.log( "modulePath: " + modulePath );
 	if ( fs.existsSync( modulePath ) ) {
 		return modulePath;
 	}
 	modulePath = path.join( __dirname, "build", "Debug", "uses-v1.node" );
-	console.log( "modulePath: " + modulePath );
 	if ( fs.existsSync( modulePath )) {
 		return modulePath;
 	}
@@ -18,4 +16,4 @@ if ( !napiModule ) {
 	throw "Module not found!";
 }
 
-module.exports = require( "napi-lib-v1" ).loadNapiModule( napiModule );
+module.exports = require( "napi-lib" ).loadAddon( napiModule, "v1" );

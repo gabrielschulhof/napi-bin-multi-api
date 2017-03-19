@@ -4,7 +4,7 @@
 			"target_name": "loader",
 			"sources": [
 				"loader.cc"
-			]
+			],
 		},
 		{
 			"target_name": "v1",
@@ -37,6 +37,17 @@
 				"action": [ "node", "build-scripts/final-move.js", "<(PRODUCT_DIR)" ]
 			} ],
 			"dependencies": [ "v1", "v2" ]
+		},
+		{
+			"target_name": "save-product-dir",
+			"type": "none",
+			"actions": [ {
+				"action_name": "save-product-dir",
+				"message": "Saving PRODUCT_DIR",
+				"inputs": [ "" ],
+				"outputs": [ "product-dir.json" ],
+				"action": [ "node", "build-scripts/save-product-dir.js", "<(PRODUCT_DIR)" ]
+			} ]
 		}
 	]
 }
